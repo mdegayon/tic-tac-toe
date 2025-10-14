@@ -11,3 +11,10 @@ const reportWebVitals = onPerfEntry => {
 };
 
 export default reportWebVitals;
+
+/*
+* Dibujar tablero
+* Dibujar ficha
+* Dibujar jugador
+*
+* */
