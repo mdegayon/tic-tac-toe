@@ -5,9 +5,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/app               # monta tu proyecto local dentro del contenedor
-      - /app/node_modules    # evita conflictos entre host y contenedor
+      - .:/app
     environment:
-      - CHOKIDAR_USEPOLLING=true  # asegura que React detecte cambios (útil en Mac/Windows)
+      - CHOKIDAR_USEPOLLING=true  # To make sure React's detecting any file change (útil en Mac/Windows)
       - WATCHPACK_POLLING=true
     command: npm start

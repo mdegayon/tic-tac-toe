@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
@@ -14,11 +14,23 @@ const player2 = {
 function App() {
 
   // const xor
-  const board = [
+/*  const board = [
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
-  ];
+  ];*/
+
+  const [playerTurn, setPlayerTurn] = useState(0);
+  const [reloadKey, setReloadKey] = useState(0);
+  const handleTurnChange = () => {
+    // 0 = Player 1, 1 = Player 2
+    setPlayerTurn(playerTurn ^ 1);
+  };
+
+  const handleReload = () => {
+    console.log('handleReload');
+    setReloadKey(reloadKey+1);
+  }
 
   return (
     <div className="App">
@@ -27,40 +39,66 @@ function App() {
           <div><Player player={player1}/></div>
           <div><Player player={player2}/></div>
         </div>
-          <GameBoard/>
+        <GameBoard playerTurn={playerTurn} onTurnChange={handleTurnChange} key={reloadKey} />
+        <div className="p-3">
+          <ReloadButton onReloadClick={handleReload}/>
+        </div>
       </main>
     </div>
-);
+  );
 }
 
-function GameBoard(){
+function ReloadButton({onReloadClick})
+{
+  return (
+      <button variant="primary" onClick={onReloadClick}>Reload</button>
+  );
+}
 
-  function handleRowClick(){
-    console.log("You clicked");
-  }
-
+function GameBoard({playerTurn, onTurnChange}) {
   return (
       <div className="GameBoard">
         <table className="GameBoard-table">
           <tbody>
           <tr>
-            <td data-col='0' data-row='0' onClick={handleRowClick}></td>
-            <td data-col='1' data-row='0' onClick={handleRowClick}></td>
-            <td data-col='2' data-row='0' onClick={handleRowClick}></td>
+            <TableCell row={0} col={0} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
+            <TableCell row={1} col={0} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
+            <TableCell row={2} col={0} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
           </tr>
           <tr>
-            <td data-col='0' data-row='1' onClick={handleRowClick}></td>
-            <td data-col='1' data-row='1' onClick={handleRowClick}></td>
-            <td data-col='2' data-row='1' onClick={handleRowClick}></td>
+            <TableCell row={0} col={1} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
+            <TableCell row={1} col={1} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
+            <TableCell row={2} col={1} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
           </tr>
           <tr>
-            <td data-col='0' data-row='2' onClick={handleRowClick}></td>
-            <td data-col='1' data-row='2' onClick={handleRowClick}></td>
-            <td data-col='2' data-row='2' onClick={handleRowClick}></td>
+            <TableCell row={0} col={2} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
+            <TableCell row={1} col={2} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
+            <TableCell row={2} col={2} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
           </tr>
           </tbody>
         </table>
       </div>
+  );
+}
+
+function TableCell({ row, col, playerTurn, onTurnChange }) {
+
+  const [playerIcon, setPlayerIcon] = useState("");
+
+  let icons = [
+    "bi bi-x-lg",
+    "bi bi-circle"
+  ];
+
+  const handleRowClick = () => {
+    setPlayerIcon(icons[playerTurn]);
+    onTurnChange();
+  };
+
+  return (
+      <td data-col={col} data-row={row} onClick={handleRowClick}>
+        {playerIcon && <i className={playerIcon}></i>}
+      </td>
   );
 }
 

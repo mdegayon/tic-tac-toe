@@ -5,7 +5,8 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
 
-# No copiamos el código fuente aquí porque se montará como volumen
+# Wont' be copyin code src since it will be mount as a volume in docker-compose
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Replaced by 'command' in docker-compose file
+#CMD ["npm", "start"]
