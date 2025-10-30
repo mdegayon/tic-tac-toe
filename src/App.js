@@ -124,7 +124,7 @@ function GameBoard({playerTurn, onWin, onTurnChange})
 
         {winner && (
             <div className="Winner">
-              🏆 ¡{winner} ha ganado!
+              🏆 ¡{winner} won!
             </div>
         )}
 
