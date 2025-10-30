@@ -80,12 +80,9 @@ function GameBoard({playerTurn, onWin, onTurnChange})
 
   const handleCellClick = function(row, col) {
 
-    console.log("handleCellClick", row, col);
-    console.log(board);
     if(winner){
       return;
     }
-
     if (board[row][col] !== "") {
       return;
     }
@@ -115,8 +112,9 @@ function GameBoard({playerTurn, onWin, onTurnChange})
                   {row.map((cell, cellIndex) => (
                     <TableCell  playerIcon={board[rowIndex][cellIndex]}
                                 onClickChange={function(){
-                                handleCellClick(rowIndex,cellIndex)
-                    }}/>
+                                  handleCellClick(rowIndex,cellIndex)
+                                }}
+                    />
                   ))}
                 </tr>
             ))}
@@ -135,8 +133,6 @@ function GameBoard({playerTurn, onWin, onTurnChange})
 }
 
 function TableCell({ playerIcon, onClickChange }) {
-
-  console.log("Player Icon", playerIcon);
 
   return (
       <td onClick={onClickChange}>
