@@ -48,48 +48,78 @@ function ReloadButton({onReloadClick})
   );
 }
 
-function GameBoard({playerTurn, onTurnChange}) {
-  return (
-      <div className="GameBoard">
-        <table className="GameBoard-table">
-          <tbody>
-          <tr>
-            <TableCell row={0} col={0} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-            <TableCell row={1} col={0} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-            <TableCell row={2} col={0} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-          </tr>
-          <tr>
-            <TableCell row={0} col={1} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-            <TableCell row={1} col={1} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-            <TableCell row={2} col={1} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-          </tr>
-          <tr>
-            <TableCell row={0} col={2} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-            <TableCell row={1} col={2} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-            <TableCell row={2} col={2} playerTurn={playerTurn} onTurnChange={onTurnChange}/>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-  );
-}
+function GameBoard({playerTurn, players, onTurnChange})
+{
+  const icons = ["bi bi-x-lg", "bi bi-circle"];
+  const [board, setBoard] = useState([
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""]
+  ]);
+  const [winner, setWinner] = useState(null);
 
-function TableCell({ row, col, playerTurn, onTurnChange }) {
+  const handleCellClick = function(row, col) {
 
-  const [playerIcon, setPlayerIcon] = useState("");
+    console.log("handleCellClick", row, col);
+    console.log(board);
+    if(winner){
+      return;
+    }
 
-  let icons = [
-    "bi bi-x-lg",
-    "bi bi-circle"
-  ];
+    if (board[row][col] !== "") {
+      return;
+    }
 
-  const handleRowClick = () => {
-    setPlayerIcon(icons[playerTurn]);
+    const updatedBoard = board.map(row => [...row]);
+    updatedBoard[row][col] = icons[playerTurn];
+    setBoard(updatedBoard);
+
+    if (checkWinner(updatedBoard)) {
+      setWinner(playerTurn === 0 ? "Player 1" : "Player 2");
+
+      players[playerTurn].victories = players[playerTurn].victories++;
+
+      return;
+    }
+
     onTurnChange();
   };
 
   return (
-      <td data-col={col} data-row={row} onClick={handleRowClick}>
+      <div className="GameBoard">
+        <table className="GameBoard-table">
+          <tbody>
+
+            {board.map((row, rowIndex) => (
+                <tr>
+                  {row.map((cell, cellIndex) => (
+                    <TableCell  playerIcon={board[rowIndex][cellIndex]}
+                                onClickChange={function(){
+                                handleCellClick(rowIndex,cellIndex)
+                    }}/>
+                  ))}
+                </tr>
+            ))}
+
+          </tbody>
+        </table>
+
+        {winner && (
+            <div className="Winner">
+              🏆 ¡{winner} ha ganado!
+            </div>
+        )}
+
+      </div>
+  );
+}
+
+function TableCell({ playerIcon, onClickChange }) {
+
+  console.log("Player Icon", playerIcon);
+
+  return (
+      <td onClick={onClickChange}>
         {playerIcon && <i className={playerIcon}></i>}
       </td>
   );
@@ -104,6 +134,27 @@ function Player({player}) {
         </ul>
       </div>
   );
+}
+
+function checkWinner(board)
+{
+  // filas
+  for (let i = 0; i < 3; i++) {
+    if (board[i][0] && board[i][0] === board[i][1] && board[i][1] === board[i][2])
+      return true;
+  }
+  // columnas
+  for (let i = 0; i < 3; i++) {
+    if (board[0][i] && board[0][i] === board[1][i] && board[1][i] === board[2][i])
+      return true;
+  }
+  // diagonales
+  if (board[0][0] && board[0][0] === board[1][1] && board[1][1] === board[2][2])
+    return true;
+  if (board[0][2] && board[0][2] === board[1][1] && board[1][1] === board[2][0])
+    return true;
+
+  return false;
 }
 
 export default App;
