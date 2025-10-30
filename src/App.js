@@ -4,20 +4,40 @@ import { useState } from 'react';
 
 function App() {
 
-  const[players, setPlayers] = useState([
-    {name: 'Player 1', victories: 0 },
-    {name: 'Player 2', victories: 0, }
-  ]);
+  const determineStartingPlayer = () => {
+    return Math.floor(Math.random() * 2);
+  };
 
-  const [playerTurn, setPlayerTurn] = useState(0);
-  const [reloadKey, setReloadKey] = useState(0);
   const handleTurnChange = () => {
     setPlayerTurn(playerTurn ^ 1);
   };
 
+  const onWin = function(winnerIndex)
+  {
+    setPlayers( (prevPlayersState) => {
+
+      return prevPlayersState.map( function(currentPlayer, playerIndex){
+
+          return (playerIndex === winnerIndex)  ? {...currentPlayer, victories: currentPlayer.victories + 1}
+                                                : currentPlayer;
+      });
+
+    });
+  };
+
   const handleReload = () => {
     setReloadKey(reloadKey+1);
+    setPlayerTurn(determineStartingPlayer());
   }
+
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const [playerTurn, setPlayerTurn] = useState(determineStartingPlayer());
+
+  const[players, setPlayers] = useState([
+    {name: 'Player 1', victories: 0, icon: "bi bi-x-lg" },
+    {name: 'Player 2', victories: 0, icon: "bi bi-circle"}
+  ]);
 
   return (
     <div className="App">
