@@ -48,7 +48,7 @@ function App() {
         </div>
 
         <GameBoard  playerTurn={playerTurn}
-                    players={players}
+                    onWin={onWin}
                     onTurnChange={handleTurnChange}
                     key={reloadKey}
         />
@@ -68,7 +68,7 @@ function ReloadButton({onReloadClick})
   );
 }
 
-function GameBoard({playerTurn, players, onTurnChange})
+function GameBoard({playerTurn, onWin, onTurnChange})
 {
   const icons = ["bi bi-x-lg", "bi bi-circle"];
   const [board, setBoard] = useState([
@@ -95,11 +95,11 @@ function GameBoard({playerTurn, players, onTurnChange})
     setBoard(updatedBoard);
 
     if (checkWinner(updatedBoard)) {
+
       setWinner(playerTurn === 0 ? "Player 1" : "Player 2");
-
-      players[playerTurn].victories = players[playerTurn].victories++;
-
+      onWin(playerTurn);
       return;
+
     }
 
     onTurnChange();
