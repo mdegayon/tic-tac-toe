@@ -2,33 +2,20 @@
 import './App.css';
 import { useState } from 'react';
 
-const player1 = {
-  name: 'Player 1',
-  victories: 0,
-};
-const player2 = {
-  name: 'Player 2',
-  victories: 0,
-};
-
 function App() {
 
-  // const xor
-/*  const board = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ];*/
+  const[players, setPlayers] = useState([
+    {name: 'Player 1', victories: 0 },
+    {name: 'Player 2', victories: 0, }
+  ]);
 
   const [playerTurn, setPlayerTurn] = useState(0);
   const [reloadKey, setReloadKey] = useState(0);
   const handleTurnChange = () => {
-    // 0 = Player 1, 1 = Player 2
     setPlayerTurn(playerTurn ^ 1);
   };
 
   const handleReload = () => {
-    console.log('handleReload');
     setReloadKey(reloadKey+1);
   }
 
@@ -36,10 +23,16 @@ function App() {
     <div className="App">
       <main className="App-main">
         <div className="Players">
-          <div><Player player={player1}/></div>
-          <div><Player player={player2}/></div>
+          <div><Player player={players[0]}/></div>
+          <div><Player player={players[1]}/></div>
         </div>
-        <GameBoard playerTurn={playerTurn} onTurnChange={handleTurnChange} key={reloadKey} />
+
+        <GameBoard  playerTurn={playerTurn}
+                    players={players}
+                    onTurnChange={handleTurnChange}
+                    key={reloadKey}
+        />
+
         <div className="p-3">
           <ReloadButton onReloadClick={handleReload}/>
         </div>
