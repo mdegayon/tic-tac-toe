@@ -35,8 +35,8 @@ function App() {
   const [playerTurn, setPlayerTurn] = useState(determineStartingPlayer());
 
   const[players, setPlayers] = useState([
-    {name: 'Player 1', victories: 0, icon: "bi bi-x-lg" },
-    {name: 'Player 2', victories: 0, icon: "bi bi-circle"}
+    {name: 'Papá', victories: 0, icon: "bi bi-x-lg" },
+    {name: 'Pupu', victories: 0, icon: "bi bi-circle"}
   ]);
 
   return (
@@ -48,6 +48,7 @@ function App() {
         </div>
         <TurnPanel turnIcon={players[playerTurn].icon}/>
         <GameBoard  playerTurn={playerTurn}
+                    players={players}
                     onWin={onWin}
                     onTurnChange={handleTurnChange}
                     key={reloadKey}
@@ -68,7 +69,7 @@ function ReloadButton({onReloadClick})
   );
 }
 
-function GameBoard({playerTurn, onWin, onTurnChange})
+function GameBoard({playerTurn, players, onWin, onTurnChange})
 {
   const icons = ["bi bi-x-lg", "bi bi-circle"];
   const [board, setBoard] = useState([
@@ -87,13 +88,13 @@ function GameBoard({playerTurn, onWin, onTurnChange})
       return;
     }
 
-    const updatedBoard = board.map(row => [...row]);
+    let updatedBoard = board.map(row => [...row]);
     updatedBoard[row][col] = icons[playerTurn];
     setBoard(updatedBoard);
 
-    if (checkWinner(updatedBoard)) {
-
-      setWinner(playerTurn === 0 ? "Player 1" : "Player 2");
+    let winningRows = checkWinner(updatedBoard);
+    if (winningRows) {
+      setWinner(players[playerTurn].name);
       onWin(playerTurn);
       return;
 
@@ -121,12 +122,7 @@ function GameBoard({playerTurn, onWin, onTurnChange})
 
           </tbody>
         </table>
-
-        {winner && (
-            <div className="Winner">
-              🏆 ¡{winner} won!
-            </div>
-        )}
+        <WinnerPanel winner={winner} />
 
       </div>
   );
@@ -164,25 +160,50 @@ function TurnPanel({turnIcon})
   );
 }
 
+function WinnerPanel({winner}){
+  if (!winner){
+    return null;
+  }
+
+  return (
+      <div className="Winner">
+        🏆 ¡{winner} won!
+      </div>
+  )
+}
+
 function checkWinner(board)
 {
-  // filas
+  let winningRows = false;
+  // rows
   for (let i = 0; i < 3; i++) {
-    if (board[i][0] && board[i][0] === board[i][1] && board[i][1] === board[i][2])
-      return true;
-  }
-  // columnas
-  for (let i = 0; i < 3; i++) {
-    if (board[0][i] && board[0][i] === board[1][i] && board[1][i] === board[2][i])
-      return true;
-  }
-  // diagonales
-  if (board[0][0] && board[0][0] === board[1][1] && board[1][1] === board[2][2])
-    return true;
-  if (board[0][2] && board[0][2] === board[1][1] && board[1][1] === board[2][0])
-    return true;
 
-  return false;
+    if (board[i][0] && board[i][0] === board[i][1] && board[i][1] === board[i][2]){
+      winningRows = [ [i,0], [i,1], [i,2] ];
+      break;
+    }
+
+  }
+
+  // columns
+  for (let i = 0; i < 3; i++) {
+
+    if (board[0][i] && board[0][i] === board[1][i] && board[1][i] === board[2][i]){
+      winningRows = [ [0,i],[1,i],[2,i] ];
+      break;
+    }
+
+  }
+
+  // diagonals
+  if (board[0][0] && board[0][0] === board[1][1] && board[1][1] === board[2][2]){
+    winningRows = [ [0,0],[1,1],[2,2] ];
+  }
+  if (board[0][2] && board[0][2] === board[1][1] && board[1][1] === board[2][0]){
+    winningRows = [ [0,2], [1,1], [2,0] ];
+  }
+
+  return winningRows;
 }
 
 export default App;
