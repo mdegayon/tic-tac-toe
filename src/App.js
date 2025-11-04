@@ -43,21 +43,25 @@ function App() {
   return (
     <div className="App">
       <main className="App-main">
+
         <div className="Players">
           <div><Player player={players[0]} /></div>
+          <TurnPanel turnIcon={players[playerTurn].icon} />
           <div><Player player={players[1]} /></div>
         </div>
-        <TurnPanel turnIcon={players[playerTurn].icon} />
-        <GameBoard
-          playerIndex={playerTurn}
-          currentPlayer={players[playerTurn]}
-          onWin={onWin}
-          onTurnChange={handleTurnChange}
-          key={reloadKey}
-        />
-        <WinnerPanel winner={winner} />
-        <div className="p-3">
-          <ReloadButton onReloadClick={handleReload} />
+
+        <div>
+          <GameBoard
+            playerIndex={playerTurn}
+            currentPlayer={players[playerTurn]}
+            onWin={onWin}
+            onTurnChange={handleTurnChange}
+            key={reloadKey}
+          />
+          <WinnerPanel winner={winner} />
+          <div className="p-3">
+            <ReloadButton onReloadClick={handleReload} />
+          </div>
         </div>
       </main>
     </div>
