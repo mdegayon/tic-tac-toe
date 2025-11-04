@@ -175,3 +175,5 @@ function checkWinner(board)
 }
 
 export default App;
+
+// papa eres  toli pupu no.eres toli pero te quiro muchisimo de pupu muac.
