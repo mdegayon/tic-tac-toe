@@ -6,9 +6,22 @@ function WinnerPanel({winner}) {
   }
 
   return (
-    <div className="Winner">
-      🏆 ¡{winner} won!
-    </div>
+      <section className="Winner nes-container">
+
+        <section className="message-list">
+
+          <section className="message -left">
+            <i className="nes-bcrikko"></i>
+            <div className="nes-balloon from-left">
+              <p>
+                <i className="nes-icon trophy is-large"></i>
+                ¡{winner} won!
+              </p>
+            </div>
+          </section>
+
+        </section>
+      </section>
   );
 }
 

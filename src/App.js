@@ -36,8 +36,8 @@ function App() {
   const [playerTurn, setPlayerTurn] = useState(determineStartingPlayer());
   const [winner, setWinner] = useState(null);
   const [players, setPlayers] = useState([
-    { name: 'Papá', victories: 0, icon: "bi bi-x-lg" },
-    { name: 'Pupu', victories: 0, icon: "bi bi-circle" }
+    { name: 'Papá', victories: 0, icon: "nes-icon is-large heart is-empty" },
+    { name: 'Pupu', victories: 0, icon: "nes-icon is-large star is-empty" }
   ]);
 
   return (
