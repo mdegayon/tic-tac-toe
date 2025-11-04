@@ -14,6 +14,7 @@ function App() {
 
   const onWin = function(winnerIndex)
   {
+    setWinner(players[winnerIndex].name);
     setPlayers( (prevPlayersState) => {
 
       return prevPlayersState.map( function(currentPlayer, playerIndex){
@@ -27,12 +28,15 @@ function App() {
 
   const handleReload = () => {
     setReloadKey(reloadKey+1);
+    setWinner(null);
     setPlayerTurn(determineStartingPlayer());
   }
 
   const [reloadKey, setReloadKey] = useState(0);
 
   const [playerTurn, setPlayerTurn] = useState(determineStartingPlayer());
+
+  const [winner, setWinner] = useState(null);
 
   const[players, setPlayers] = useState([
     {name: 'Papá', victories: 0, icon: "bi bi-x-lg" },
@@ -47,13 +51,13 @@ function App() {
           <div><Player player={players[1]}/></div>
         </div>
         <TurnPanel turnIcon={players[playerTurn].icon}/>
-        <GameBoard  playerTurn={playerTurn}
-                    players={players}
+        <GameBoard  playerIndex={playerTurn}
+                    currentPlayer={players[playerTurn]}
                     onWin={onWin}
                     onTurnChange={handleTurnChange}
                     key={reloadKey}
         />
-
+        <WinnerPanel winner={winner} />
         <div className="p-3">
           <ReloadButton onReloadClick={handleReload}/>
         </div>
@@ -69,35 +73,28 @@ function ReloadButton({onReloadClick})
   );
 }
 
-function GameBoard({playerTurn, players, onWin, onTurnChange})
+function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange})
 {
-  const icons = ["bi bi-x-lg", "bi bi-circle"];
   const [board, setBoard] = useState([
     ["", "", ""],
     ["", "", ""],
     ["", "", ""]
   ]);
-  const [winner, setWinner] = useState(null);
 
   const handleCellClick = function(row, col) {
 
-    if(winner){
-      return;
-    }
     if (board[row][col] !== "") {
       return;
     }
 
     let updatedBoard = board.map(row => [...row]);
-    updatedBoard[row][col] = icons[playerTurn];
+    updatedBoard[row][col] = currentPlayer.icon;
     setBoard(updatedBoard);
 
     let winningRows = checkWinner(updatedBoard);
     if (winningRows) {
-      setWinner(players[playerTurn].name);
-      onWin(playerTurn);
+      onWin(playerIndex);
       return;
-
     }
 
     onTurnChange();
@@ -122,8 +119,6 @@ function GameBoard({playerTurn, players, onWin, onTurnChange})
 
           </tbody>
         </table>
-        <WinnerPanel winner={winner} />
-
       </div>
   );
 }
