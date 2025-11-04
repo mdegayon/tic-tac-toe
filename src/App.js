@@ -46,7 +46,7 @@ function App() {
           <div><Player player={players[0]}/></div>
           <div><Player player={players[1]}/></div>
         </div>
-
+        <TurnPanel turnIcon={players[playerTurn].icon}/>
         <GameBoard  playerTurn={playerTurn}
                     onWin={onWin}
                     onTurnChange={handleTurnChange}
@@ -149,6 +149,17 @@ function Player({player}) {
           <li>Name: {player.name}</li>
           <li>Victories: {player.victories}</li>
         </ul>
+      </div>
+  );
+}
+
+function TurnPanel({turnIcon})
+{
+  return(
+      <div>
+        <i className={turnIcon}></i>
+        <br/>
+        turn
       </div>
   );
 }
