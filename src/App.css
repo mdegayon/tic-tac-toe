@@ -13,23 +13,26 @@
   }
 }
 
-/* Layout principal: dos columnas centradas */
 .App-main {
   display: flex;
-  justify-content: center;  /* centra horizontalmente */
-  align-items: center;      /* centra verticalmente */
-  gap: 60px;                /* espacio entre jugadores y tablero */
-  min-height: 100vh;        /* ocupar pantalla completa */
+  flex-direction: column;
+  justify-content: center;
+  /*align-items: center;*/
+  gap: 60px;
+  /*min-height: 100vh;*/
   font-family: sans-serif;
 }
 
-/* Columna de jugadores */
 .Players {
   display: flex;
-  flex-direction: column;   /* uno debajo del otro */
+  flex: 1;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
   gap: 20px;
-  align-items: center;      /* centrar los players entre sí */
+  padding: 0.5rem;
 }
+/* Columna de jugadores */
 
 /* Estilo tarjeta jugador */
 .Player {
