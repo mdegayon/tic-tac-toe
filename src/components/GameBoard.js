@@ -3,6 +3,8 @@ import TableCell from './TableCell';
 import { checkWinner } from '../utils/gameLogic';
 
 function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange}) {
+
+  const [winningRows, setWinningRows] = useState(null);
   const [board, setBoard] = useState([
     ["", "", ""],
     ["", "", ""],
@@ -13,13 +15,17 @@ function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange}) {
     if (board[row][col] !== "") {
       return;
     }
+    if (winningRows !== null) {
+      return;
+    }
 
     let updatedBoard = board.map(row => [...row]);
     updatedBoard[row][col] = currentPlayer.icon;
     setBoard(updatedBoard);
 
-    let winningRows = checkWinner(updatedBoard);
-    if (winningRows) {
+    const checkResult = checkWinner(updatedBoard);
+    if (checkResult) {
+      setWinningRows( checkResult );
       onWin(playerIndex);
       return;
     }
