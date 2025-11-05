@@ -85,6 +85,20 @@
   border: 3px solid black;
 }
 
+@keyframes blinkAnimation {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0.3;
+  }
+}
+
+.blink {
+  animation: blinkAnimation 1s infinite;
+}
+
+
 .GameBoard-table tr:first-child td { border-top: none; }
 .GameBoard-table tr:last-child td { border-bottom: none; }
 .GameBoard-table td:first-child { border-left: none; }
