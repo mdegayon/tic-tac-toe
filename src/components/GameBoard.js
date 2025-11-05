@@ -38,18 +38,26 @@ function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange}) {
       <table className="GameBoard-table">
         <tbody>
           {board.map((row, rowIndex) => (
+
             <tr key={rowIndex}>
+
               {row.map((cell, cellIndex) => (
+
                 <TableCell
                   key={`${rowIndex}-${cellIndex}`}
                   playerIcon={board[rowIndex][cellIndex]}
                   onClickChange={() => {
                     handleCellClick(rowIndex, cellIndex);
                   }}
+                  isWinningRow={winningRows && winningRows.some(([r, c]) => r === rowIndex && c === cellIndex)}
                 />
+
               ))}
+
             </tr>
+
           ))}
+
         </tbody>
       </table>
     </div>
