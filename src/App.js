@@ -5,6 +5,7 @@ import GameBoard from './components/GameBoard';
 import TurnPanel from './components/TurnPanel';
 import WinnerPanel from './components/WinnerPanel';
 import ReloadButton from './components/ReloadButton';
+import SoundEffectService from "./services/SoundEffectService";
 
 function App() {
   const determineStartingPlayer = () => {
@@ -16,6 +17,9 @@ function App() {
   };
 
   const onWin = (winnerIndex) => {
+
+    SoundEffectService.trigger('game:win');
+
     setWinner(players[winnerIndex].name);
     setPlayers((prevPlayersState) => {
       return prevPlayersState.map((currentPlayer, playerIndex) => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TableCell from './TableCell';
 import { checkWinner } from '../utils/gameLogic';
+import soundEffectService from "../services/SoundEffectService";
 
 function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange}) {
 
@@ -12,12 +13,18 @@ function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange}) {
   ]);
 
   const handleCellClick = function(row, col) {
+
     if (board[row][col] !== "") {
+      soundEffectService.trigger('cell:click-err');
       return;
     }
+
     if (winningRows !== null) {
+      soundEffectService.trigger('cell:click-err');
       return;
     }
+
+    soundEffectService.trigger('cell:click');
 
     let updatedBoard = board.map(row => [...row]);
     updatedBoard[row][col] = currentPlayer.icon;
