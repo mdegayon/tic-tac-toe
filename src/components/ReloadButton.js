@@ -2,7 +2,7 @@ import React from 'react';
 import SoundEffectService from "../services/SoundEffectService";
 
 function ReloadButton({onReloadClick}) {
-    
+
     const handleClick = (e) => {
         SoundEffectService.trigger('game:reload');
         onReloadClick(e);
