@@ -16,6 +16,14 @@ function App() {
     setPlayerTurn(playerTurn ^ 1);
   };
 
+  const handleNameChange = (index, newName) => {
+    setPlayers(prev =>
+        prev.map((player, i) =>
+            i === index ? { ...player, name: newName } : player
+        )
+    );
+  };
+
   const onWin = (winnerIndex) => {
 
     SoundEffectService.trigger('game:win');
@@ -49,9 +57,21 @@ function App() {
       <main className="App-main">
 
         <div className="Players">
-          <div><Player player={players[0]} /></div>
+          <div>
+            <Player player={players[0]}
+                    key={0}
+                    index={0}
+                    onNameChange={handleNameChange}
+            />
+          </div>
           <TurnPanel turnIcon={players[playerTurn].icon} />
-          <div><Player player={players[1]} /></div>
+          <div>
+            <Player player={players[1]}
+                    key={1}
+                    index={1}
+                    onNameChange={handleNameChange}
+            />
+          </div>
         </div>
 
         <div>
