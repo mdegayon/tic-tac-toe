@@ -24,6 +24,12 @@ function App() {
     );
   };
 
+  const handleAvatarChange = (index, newAvatar) => {
+    setPlayers(prev =>
+        prev.map((p, i) => (i === index ? { ...p, avatar: newAvatar } : p))
+    );
+  };
+
   const onWin = (winnerIndex) => {
 
     SoundEffectService.trigger('game:win');
@@ -48,8 +54,18 @@ function App() {
   const [playerTurn, setPlayerTurn] = useState(determineStartingPlayer());
   const [winner, setWinner] = useState(null);
   const [players, setPlayers] = useState([
-    { name: 'Papá', victories: 0, icon: "nes-icon is-large heart is-empty" },
-    { name: 'Pupu', victories: 0, icon: "nes-icon is-large star is-empty" }
+    {
+      name: 'Papá',
+      victories: 0,
+      icon: "nes-icon is-large heart is-empty",
+      avatar: 'nes-mario'
+    },
+    {
+      name: 'Pupu',
+      victories: 0,
+      icon: "nes-icon is-large star is-empty",
+      avatar: 'nes-kirby'
+    }
   ]);
 
   return (
@@ -62,6 +78,7 @@ function App() {
                     key={0}
                     index={0}
                     onNameChange={handleNameChange}
+                    onAvatarChange={handleAvatarChange}
             />
           </div>
           <TurnPanel turnIcon={players[playerTurn].icon} />
@@ -70,6 +87,7 @@ function App() {
                     key={1}
                     index={1}
                     onNameChange={handleNameChange}
+                    onAvatarChange={handleAvatarChange}
             />
           </div>
         </div>
