@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import EditableField from './form/EditableField';
 import AvatarPicker from './form/AvatarPicker';
 import './Player.css';
 
 function Player({ player, index, onNameChange, onAvatarChange, isCurrent }) {
     const [showPicker, setShowPicker] = useState(false);
-    const [isDark, setIsDark] = useState(false);
-
-    useEffect(() => {
-        let interval;
-        if (isCurrent) {
-            interval = setInterval(() => {
-                setIsDark((prev) => !prev);
-            }, 700); // velocidad del parpadeo
-        } else {
-            setIsDark(false);
-        }
-
-        return () => clearInterval(interval);
-    }, [isCurrent]);
 
     return (
         <div
-            className={`Player nes-container is-rounded ${
-                isCurrent && isDark ? 'is-dark' : ''
-            }`}
+            className={`Player nes-container ${isCurrent ? 'is-current' : ''}`}
             style={{ position: 'relative' }}
         >
             <div className="player-top">
