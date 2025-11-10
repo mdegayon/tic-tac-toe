@@ -1,20 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditableField from './form/EditableField';
 import AvatarPicker from './form/AvatarPicker';
 import './Player.css';
 
-function Player({ player, index, onNameChange, onAvatarChange }) {
+function Player({ player, index, onNameChange, onAvatarChange, isCurrent }) {
     const [showPicker, setShowPicker] = useState(false);
+    const [isDark, setIsDark] = useState(false);
+
+    useEffect(() => {
+        let interval;
+        if (isCurrent) {
+            interval = setInterval(() => {
+                setIsDark((prev) => !prev);
+            }, 700); // velocidad del parpadeo
+        } else {
+            setIsDark(false);
+        }
+
+        return () => clearInterval(interval);
+    }, [isCurrent]);
 
     return (
-        <div className="Player nes-container is-rounded" style={{ position: 'relative' }}>
+        <div
+            className={`Player nes-container is-rounded ${
+                isCurrent && isDark ? 'is-dark' : ''
+            }`}
+            style={{ position: 'relative' }}
+        >
             <div className="player-top">
-
                 <div className="player-piece" title="Ficha">
                     <i className={player.icon}></i>
                 </div>
 
-                {/* Avatar seleccionable */}
                 <div
                     className="player-avatar"
                     onClick={() => setShowPicker((s) => !s)}
@@ -24,7 +41,6 @@ function Player({ player, index, onNameChange, onAvatarChange }) {
                 </div>
             </div>
 
-            {/* Avatar picker (posicionado relativo al componente) */}
             {showPicker && (
                 <AvatarPicker
                     onSelect={(avatar) => {

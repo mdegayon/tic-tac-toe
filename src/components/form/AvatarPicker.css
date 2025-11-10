@@ -1,5 +1,5 @@
 .avatar-picker {
-    position: absolute;
+    position: absolute!important;
     background: white;
     padding: 1rem;
     z-index: 1000;
@@ -21,3 +21,8 @@
 .avatar-option:hover {
     transform: scale(1.2);
 }
+
+div.Players div.Player.nes-container.is-rounded{
+    border-image-outset: 0!important;
+}
+

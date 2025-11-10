@@ -79,6 +79,7 @@ function App() {
                     index={0}
                     onNameChange={handleNameChange}
                     onAvatarChange={handleAvatarChange}
+                    isCurrent={playerTurn === 0}
             />
           </div>
           <TurnPanel turnIcon={players[playerTurn].icon} />
@@ -88,6 +89,7 @@ function App() {
                     index={1}
                     onNameChange={handleNameChange}
                     onAvatarChange={handleAvatarChange}
+                    isCurrent={playerTurn === 1}
             />
           </div>
         </div>
