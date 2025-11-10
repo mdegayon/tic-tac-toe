@@ -1,15 +1,15 @@
 import './App.css';
 import { useState } from 'react';
-import Player from './components/Player';
-import GameBoard from './components/GameBoard';
-import TurnPanel from './components/TurnPanel';
-import WinnerPanel from './components/WinnerPanel';
-import ReloadButton from './components/ReloadButton';
+import Player from './components/Player/Player';
+import GameBoard from './components/GameBoard/GameBoard';
+import TurnPanel from './components/TurnPanel/TurnPanel';
+import WinnerPanel from './components/WinnerPanel/WinnerPanel';
+import ReloadButton from './components/ReloadButton/ReloadButton';
 import SoundEffectService from "./services/SoundEffectService";
 
 function App() {
   const determineStartingPlayer = () => {
-    return Math.floor(Math.random() * 2);
+    return Math.floor(Math.random() * 2); // Returns 0 or 1
   };
 
   const handleTurnChange = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useMemo } from 'react';
-import BlinkService from '../services/BlinkService';
+import BlinkService from '../../services/BlinkService';
 //import SoundEffectService from '../services/SoundEffectService';
 
 function TableCell({ playerIcon, onClickChange, isWinningRow })

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import TableCell from './TableCell';
-import { checkWinner } from '../utils/gameLogic';
-import soundEffectService from "../services/SoundEffectService";
+import TableCell from '../TableCell/TableCell';
+import { checkWinner } from '../../utils/gameLogic';
+import soundEffectService from "../../services/SoundEffectService";
 
 function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange}) {
 

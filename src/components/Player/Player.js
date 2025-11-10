@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import EditableField from './form/EditableField';
-import AvatarPicker from './form/AvatarPicker';
+import EditableField from '../form/EditableField/EditableField';
+import AvatarPicker from '../form/AvatarPicker/AvatarPicker';
 import './Player.css';
 
 function Player({ player, index, onNameChange, onAvatarChange, isCurrent }) {
@@ -19,7 +19,7 @@ function Player({ player, index, onNameChange, onAvatarChange, isCurrent }) {
                 <div
                     className="player-avatar"
                     onClick={() => setShowPicker((s) => !s)}
-                    title="Cambiar avatar"
+                    title="Change Avatar"
                 >
                     <i className={player.avatar || 'nes-mario'}></i>
                 </div>
@@ -29,21 +29,22 @@ function Player({ player, index, onNameChange, onAvatarChange, isCurrent }) {
                 <AvatarPicker
                     onSelect={(avatar) => {
                         onAvatarChange(index, avatar);
+                        setShowPicker(false);
                     }}
                     onClose={() => setShowPicker(false)}
                 />
             )}
 
-            <ul className="player-info">
-                <li>
-                    Name:{' '}
-                    <EditableField
-                        value={player.name}
-                        onChange={(newName) => onNameChange(index, newName)}
-                    />
-                </li>
-                <li>Victories: {player.victories}</li>
-            </ul>
+            <div className="player-info">
+                <EditableField
+                    value={player.name}
+                    onChange={(newName) => onNameChange(index, newName)}
+                    className="player-name"
+                />
+                <div className="player-score">
+                    <i className="nes-icon trophy is-small"></i> Victories: {player.victories}
+                </div>
+            </div>
         </div>
     );
 }

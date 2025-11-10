@@ -1,5 +1,5 @@
 import React from 'react';
-import SoundEffectService from "../services/SoundEffectService";
+import SoundEffectService from "../../services/SoundEffectService";
 
 function ReloadButton({onReloadClick}) {
 
