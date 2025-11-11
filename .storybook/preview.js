@@ -1,4 +1,5 @@
 import '../src/index.css';
+import 'nes.css/css/nes.min.css';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
