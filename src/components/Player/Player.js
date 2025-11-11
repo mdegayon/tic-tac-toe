@@ -11,10 +11,7 @@ function Player({ player, index, onNameChange, onAvatarChange, isCurrent, side }
             className={`Player nes-container ${isCurrent ? 'is-current' : ''}`}
             style={{ position: 'relative' }}
         >
-            <div className="player-top">
-                <div className="player-piece" title="Ficha">
-                    <i className={player.icon}></i>
-                </div>
+            <div className="player-avatar-container">
 
                 <div
                     className="player-avatar"
@@ -23,20 +20,25 @@ function Player({ player, index, onNameChange, onAvatarChange, isCurrent, side }
                 >
                     <i className={player.avatar || 'nes-mario'}></i>
                 </div>
+
+                <div className="player-piece" title="Ficha">
+                    <i className={player.icon}></i>
+                </div>
+
+                {showPicker && (
+                    <AvatarPicker
+                        side={side}
+                        onSelect={(avatar) => {
+                            onAvatarChange(index, avatar);
+                            setShowPicker(false);
+                        }}
+                        onClose={() => setShowPicker(false)}
+                    />
+                )}
+
             </div>
 
-            {showPicker && (
-                <AvatarPicker
-                    side={side}
-                    onSelect={(avatar) => {
-                        onAvatarChange(index, avatar);
-                        setShowPicker(false);
-                    }}
-                    onClose={() => setShowPicker(false)}
-                />
-            )}
-
-            <div className="player-info">
+            <div className="player-info-container">
                 <EditableField
                     value={player.name}
                     onChange={(newName) => onNameChange(index, newName)}
