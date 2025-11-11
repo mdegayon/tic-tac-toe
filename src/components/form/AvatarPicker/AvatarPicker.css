@@ -15,7 +15,12 @@
 
 .avatar-option {
     cursor: pointer;
+    display: inline-block; /* MAKE SURE IT WORKS */
     transition: transform 0.2s;
+}
+
+.avatar-option.flipped {
+    transform: scaleX(-1);
 }
 
 .avatar-option:hover {

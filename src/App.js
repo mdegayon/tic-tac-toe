@@ -58,13 +58,13 @@ function App() {
       name: 'Papá',
       victories: 0,
       icon: "nes-icon is-large heart is-empty",
-      avatar: 'nes-mario'
+      avatar: 'nes-mario',
     },
     {
       name: 'Pupu',
       victories: 0,
       icon: "nes-icon is-large star is-empty",
-      avatar: 'nes-kirby'
+      avatar: 'nes-kirby',
     }
   ]);
 
@@ -80,6 +80,7 @@ function App() {
                     onNameChange={handleNameChange}
                     onAvatarChange={handleAvatarChange}
                     isCurrent={playerTurn === 0}
+                    side={'left'}
             />
           </div>
           <TurnPanel turnIcon={players[playerTurn].icon} />
@@ -90,6 +91,7 @@ function App() {
                     onNameChange={handleNameChange}
                     onAvatarChange={handleAvatarChange}
                     isCurrent={playerTurn === 1}
+                    side={'right'}
             />
           </div>
         </div>

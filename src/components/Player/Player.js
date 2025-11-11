@@ -3,7 +3,7 @@ import EditableField from '../form/EditableField/EditableField';
 import AvatarPicker from '../form/AvatarPicker/AvatarPicker';
 import './Player.css';
 
-function Player({ player, index, onNameChange, onAvatarChange, isCurrent }) {
+function Player({ player, index, onNameChange, onAvatarChange, isCurrent, side }) {
     const [showPicker, setShowPicker] = useState(false);
 
     return (
@@ -27,6 +27,7 @@ function Player({ player, index, onNameChange, onAvatarChange, isCurrent }) {
 
             {showPicker && (
                 <AvatarPicker
+                    side={side}
                     onSelect={(avatar) => {
                         onAvatarChange(index, avatar);
                         setShowPicker(false);
