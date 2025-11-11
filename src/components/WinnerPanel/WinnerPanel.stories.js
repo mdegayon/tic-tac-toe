@@ -1,5 +1,6 @@
 import React from 'react';
 import WinnerPanel from './WinnerPanel';
+import './WinnerPanel.css';
 
 export default {
   title: 'Components/WinnerPanel',

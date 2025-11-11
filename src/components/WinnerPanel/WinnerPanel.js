@@ -1,4 +1,5 @@
 import React from 'react';
+import './WinnerPanel.css';
 
 function WinnerPanel({winner}) {
   if (!winner) {

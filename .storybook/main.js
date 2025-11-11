@@ -1,6 +1,7 @@
 module.exports = {
   stories: [
-    "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+    "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../src/**/stories.@(js|jsx|ts|tsx|mdx)"
   ],
   addons: [
     "@storybook/addon-links",
@@ -12,8 +13,10 @@ module.exports = {
     options: {}
   },
   docs: {
-    autodocs: true
+    autodocs: true,
+    defaultName: 'Documentation'
   },
+  staticDirs: ['../public'],
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.(js|jsx)$/,
@@ -29,5 +32,14 @@ module.exports = {
       }
     });
     return config;
+  },
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: false,
+        esModuleInterop: false,
+      },
+    }
   }
 }
