@@ -6,6 +6,8 @@ function WinnerPanel({winner}) {
     return null;
   }
 
+  const isTie = winner === 'Tie!';
+
   return (
       <section className="Winner nes-container">
 
@@ -15,8 +17,17 @@ function WinnerPanel({winner}) {
             <i className="nes-bcrikko"></i>
             <div className="nes-balloon from-left">
               <p>
-                <i className="nes-icon trophy is-large"></i>
-                ¡{winner} won!
+                {isTie ? (
+                  <>
+                    <i className="nes-icon is-large star"></i>
+                    It's a tie! Nobody wins!
+                  </>
+                ) : (
+                  <>
+                    <i className="nes-icon trophy is-large"></i>
+                    ¡{winner} won!
+                  </>
+                )}
               </p>
             </div>
           </section>

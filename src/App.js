@@ -37,9 +37,20 @@ function App() {
     setWinner(players[winnerIndex].name);
     setPlayers((prevPlayersState) => {
       return prevPlayersState.map((currentPlayer, playerIndex) => {
-        return (playerIndex === winnerIndex) 
-          ? { ...currentPlayer, victories: currentPlayer.victories + 1 }
-          : currentPlayer;
+        if (playerIndex === winnerIndex) {
+          return { ...currentPlayer, victories: currentPlayer.victories + 1 };
+        } else {
+          return { ...currentPlayer, losses: currentPlayer.losses + 1 };
+        }
+      });
+    });
+  };
+
+  const onTie = () => {
+    setWinner('Tie!');
+    setPlayers((prevPlayersState) => {
+      return prevPlayersState.map((currentPlayer) => {
+        return { ...currentPlayer, ties: currentPlayer.ties + 1 };
       });
     });
   };
@@ -57,12 +68,16 @@ function App() {
     {
       name: 'Papá',
       victories: 0,
+      losses: 0,
+      ties: 0,
       icon: "nes-icon is-large heart is-empty",
       avatar: 'nes-mario',
     },
     {
       name: 'Pupu',
       victories: 0,
+      losses: 0,
+      ties: 0,
       icon: "nes-icon is-large star is-empty",
       avatar: 'nes-kirby',
     }
@@ -97,17 +112,21 @@ function App() {
         </div>
 
         <div>
-          <GameBoard
-            playerIndex={playerTurn}
-            currentPlayer={players[playerTurn]}
-            onWin={onWin}
-            onTurnChange={handleTurnChange}
-            key={reloadKey}
-          />
-          <WinnerPanel winner={winner} />
-          <div className="p-3">
+          <div className="p-3" style={{ marginBottom: '1rem' }}>
             <ReloadButton onReloadClick={handleReload} />
           </div>
+          <div id="board-container" className="nes-container is-rounded with-title">
+            <p className="title">Battle Arena</p>
+            <GameBoard
+              playerIndex={playerTurn}
+              currentPlayer={players[playerTurn]}
+              onWin={onWin}
+              onTie={onTie}
+              onTurnChange={handleTurnChange}
+              key={reloadKey}
+            />
+          </div>
+          <WinnerPanel winner={winner} />
         </div>
       </main>
     </div>

@@ -3,7 +3,7 @@ import TableCell from '../TableCell/TableCell';
 import { checkWinner } from '../../utils/gameLogic';
 import soundEffectService from "../../services/SoundEffectService";
 
-function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange}) {
+function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange, onTie}) {
 
   const [winningRows, setWinningRows] = useState(null);
   const [board, setBoard] = useState([
@@ -34,6 +34,13 @@ function GameBoard({playerIndex, currentPlayer, onWin, onTurnChange}) {
     if (checkResult) {
       setWinningRows( checkResult );
       onWin(playerIndex);
+      return;
+    }
+
+    // Check for tie (board is full)
+    const isBoardFull = updatedBoard.every(row => row.every(cell => cell !== ""));
+    if (isBoardFull && onTie) {
+      onTie();
       return;
     }
 
