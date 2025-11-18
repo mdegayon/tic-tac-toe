@@ -115,7 +115,7 @@ function App() {
           <div className="p-3" style={{ marginBottom: '1rem' }}>
             <ReloadButton onReloadClick={handleReload} />
           </div>
-          <div className="nes-container with-title">
+          <div id="board-container" className="nes-container is-rounded with-title">
             <p className="title">Battle Arena</p>
             <GameBoard
               playerIndex={playerTurn}
