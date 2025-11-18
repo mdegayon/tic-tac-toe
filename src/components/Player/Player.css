@@ -26,20 +26,17 @@
 
 /* Avatar blink effect during turn */
 @keyframes avatarBlink {
-    0%, 100% {
-        border-color: black;
-        border-style: solid;
-        transform: scale(1);
-    }
     50% {
-        border-color: #ff0000;
-        border-style: solid;
-        transform: scale(1.05);
+        opacity: 0;
     }
 }
 
-.player-avatar.avatar-blink {
-    animation: avatarBlink 0.6s ease-in-out infinite;
+.player-avatar {
+    margin: 0 1rem;
+}
+
+.player-avatar i.avatar-blink {
+    animation: avatarBlink 1.5s linear infinite;
 }
 
 /* 🎮 Street Fighter 2 Style Victory Bar */

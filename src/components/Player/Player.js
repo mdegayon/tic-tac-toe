@@ -20,12 +20,14 @@ function Player({ player, index, onNameChange, onAvatarChange, isCurrent, side }
             <div className="player-avatar-container">
 
                 <div
-                    className={`player-avatar nes-container ${isCurrent ? 'avatar-blink' : ''}`}
+                    className="player-avatar nes-container"
                     onClick={() => setShowPicker((s) => !s)}
                     title="Change Avatar"
                 >
-                    <i className={player.avatar || 'nes-mario'}></i>
+                    <i  className={`${player.avatar || 'nes-mario'} ${isCurrent ? 'avatar-blink' : ''}`}>
+                    </i>
                 </div>
+
 
                 <div className="player-piece" title="Ficha">
                     <i className={player.icon}></i>
