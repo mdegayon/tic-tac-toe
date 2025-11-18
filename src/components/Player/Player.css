@@ -1,7 +1,6 @@
 .Player {
     padding: 0.75rem;
     min-width: 600px;
-    transition: border-color 0.3s ease, border-style 0.3s ease;
     position: relative;
 
     display: flex;
@@ -10,30 +9,112 @@
     align-items: center;
 }
 
-/* Borde por defecto NES */
-.Player.nes-container {
-    border-color: black;
-    border-style: solid;
-}
-
 .Player .player-info-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-/* 🔁 Efecto de turno activo */
-@keyframes borderBlink {
+/* Avatar frame */
+.player-avatar.nes-container {
+    border-color: black;
+    border-style: solid;
+    padding: 0.5rem;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Avatar blink effect during turn */
+@keyframes avatarBlink {
     0%, 100% {
         border-color: black;
         border-style: solid;
+        transform: scale(1);
     }
     50% {
-        border-color: #888;
-        border-style: dashed;
+        border-color: #ff0000;
+        border-style: solid;
+        transform: scale(1.05);
     }
 }
 
-.Player.nes-container.is-current {
-    animation: borderBlink 0.8s step-start infinite;
+.player-avatar.avatar-blink {
+    animation: avatarBlink 0.6s ease-in-out infinite;
+}
+
+/* 🎮 Street Fighter 2 Style Victory Bar */
+.victory-bar-container {
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+.victory-bar {
+    display: flex;
+    height: 24px;
+    background-color: #000;
+    border: 4px solid #000;
+    box-shadow: 
+        inset 0 0 0 2px #fff,
+        0 4px 0 #000;
+    overflow: hidden;
+}
+
+.victory-bar-segment {
+    height: 100%;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+/* Wins - Green/Yellow gradient like SF2 */
+.victory-bar-segment.wins {
+    background: linear-gradient(to bottom, 
+        #ffd700 0%,
+        #ffed4e 20%,
+        #92cc41 50%,
+        #5cb85c 100%
+    );
+    box-shadow: inset -2px 0 0 rgba(0,0,0,0.3);
+}
+
+/* Losses - Red gradient */
+.victory-bar-segment.losses {
+    background: linear-gradient(to bottom, 
+        #ff6b6b 0%,
+        #ee5a6f 50%,
+        #c92a2a 100%
+    );
+    box-shadow: inset -2px 0 0 rgba(0,0,0,0.3);
+}
+
+/* Ties - Blue/Gray gradient */
+.victory-bar-segment.ties {
+    background: linear-gradient(to bottom, 
+        #74b9ff 0%,
+        #a29bfe 50%,
+        #6c5ce7 100%
+    );
+}
+
+/* Stats display */
+.player-score {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.player-score span {
+    padding: 0.25rem 0.5rem;
+}
+
+.stat-wins {
+    color: #5cb85c;
+}
+
+.stat-losses {
+    color: #d9534f;
+}
+
+.stat-ties {
+    color: #6c5ce7;
 }

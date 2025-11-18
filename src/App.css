@@ -59,6 +59,10 @@
 }
 
 /* Tablero */
+.GameBoard {
+  padding: 1rem;
+}
+
 .GameBoard-table {
   border-collapse: collapse;
   width: 300px;
