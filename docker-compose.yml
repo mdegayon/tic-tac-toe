@@ -22,10 +22,19 @@ services:
   storybook:
     build:
       context: .
-      dockerfile: Dockerfile.storybook
+      dockerfile: Dockerfile.storybook.dev
     container_name: tic-tac-toe-storybook
     ports:
-      - "6006:80"
+      - "6006:6006"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./.storybook:/app/.storybook
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    command: sh -c "npm install && npx storybook dev -p 6006 --ci"
     networks:
       - app-network
 

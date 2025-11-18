@@ -1,6 +1,12 @@
 import '../src/index.css';
 import 'nes.css/css/nes.min.css';
 
+// Import Press Start 2P font from Google Fonts
+const link = document.createElement('link');
+link.href = 'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap';
+link.rel = 'stylesheet';
+document.head.appendChild(link);
+
 export const parameters = {
   actions: { 
     argTypesRegex: '^on[A-Z].*',

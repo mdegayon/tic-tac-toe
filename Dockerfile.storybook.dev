@@ -1,0 +1,14 @@
+FROM node:18-alpine
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Expose port 6006
+EXPOSE 6006
+
+# Start Storybook in dev mode
+CMD ["npm", "run", "storybook"]
