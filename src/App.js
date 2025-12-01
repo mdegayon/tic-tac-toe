@@ -8,6 +8,7 @@ import ReloadButton from './components/ReloadButton/ReloadButton';
 import SoundEffectService from "./services/SoundEffectService";
 
 function App() {
+
   const determineStartingPlayer = () => {
     return Math.floor(Math.random() * 2); // Returns 0 or 1
   };
@@ -35,15 +36,19 @@ function App() {
     SoundEffectService.trigger('game:win');
 
     setWinner(players[winnerIndex].name);
+
     setPlayers((prevPlayersState) => {
+
       return prevPlayersState.map((currentPlayer, playerIndex) => {
         if (playerIndex === winnerIndex) {
           return { ...currentPlayer, victories: currentPlayer.victories + 1 };
         } else {
           return { ...currentPlayer, losses: currentPlayer.losses + 1 };
         }
+
       });
     });
+
   };
 
   const onTie = () => {
@@ -126,7 +131,7 @@ function App() {
               key={reloadKey}
             />
           </div>
-          <WinnerPanel winner={winner} />
+          <WinnerPanel winner={winner} onReloadClick={handleReload}/>
         </div>
       </main>
     </div>

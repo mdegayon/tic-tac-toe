@@ -1,7 +1,9 @@
 import React from 'react';
 import './WinnerPanel.css';
+import ReloadButton from "../ReloadButton/ReloadButton";
 
-function WinnerPanel({winner}) {
+function WinnerPanel({winner, onReloadClick}) {
+  
   if (!winner) {
     return null;
   }
@@ -33,6 +35,9 @@ function WinnerPanel({winner}) {
           </section>
 
         </section>
+
+        <ReloadButton onReloadClick={onReloadClick} />
+
       </section>
   );
 }
