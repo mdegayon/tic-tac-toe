@@ -8,4 +8,14 @@ section.Winner {
     top: 0;
     width: 100%;
     background: white;
+    animation: jumps8bit 0.5s steps(5) forwards;
+}
+
+@keyframes jumps8bit {
+    from {
+        top: 0;
+    }
+    to {
+        top: 10rem;
+    }
 }
