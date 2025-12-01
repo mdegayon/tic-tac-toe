@@ -18,7 +18,7 @@
   flex-direction: column;
   justify-content: center;
   /*align-items: center;*/
-  gap: 60px;
+  gap: 1rem;
   /*min-height: 100vh;*/
   font-family: sans-serif;
 }
