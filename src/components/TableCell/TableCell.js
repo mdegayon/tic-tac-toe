@@ -8,32 +8,32 @@ function TableCell({ playerIcon, onClickChange, isWinningRow })
 
   const [iconClass, setIconClass] = useState(playerIcon || '');
 
-  // Computa la "base" del icono sin is-empty (memoizado para no recalcular en cada tick)
+  // Computes the icon "base" without is-empty (memoized to avoid recalculating on every tick)
   const baseIconClass = useMemo(() => {
     if (!playerIcon) return '';
-    // elimina cualquier ocurrencia de 'is-empty' y arregla espacios
+    // removes any occurrence of 'is-empty' and fixes spacing
     return playerIcon.replace(/\bis-empty\b/g, '').replace(/\s+/g, ' ').trim();
   }, [playerIcon]);
 
   useEffect(() => {
 
-    // Si no hay icono o no es una fila ganadora, asegura estado normal y salimos.
+    // If there is no icon or it isn’t a winning row, ensure the normal state and exit.
     if (!isWinningRow || !baseIconClass) {
       setIconClass(playerIcon || '');
       return;
     }
 
-    // Suscribirse al servicio global para recibir true/false sincronizado.
+    // Subscribe to the global service to receive synchronized true/false.
     const unsubscribe = BlinkService.subscribe((blinkState) => {
 
-      // Si blinkState === true mostramos la versión 'is-empty', si false la versión sin 'is-empty'
+      // If blinkState === true we show the 'is-empty' version; if false, the version without 'is-empty'
       const newClass = blinkState ? `${baseIconClass} is-empty` : baseIconClass;
       setIconClass(newClass);
 
     });
 
-    // Al montar, forzamos un estado inicial coherente (opcional)
-    // (si el servicio tiene su propio estado interno, las primeras emisiones sincronizarán todo)
+    // On mount, we force a consistent initial state (optional)
+    // (if the service has its own internal state, the first emissions will synchronize everything)
     // cleanup:
     return () => unsubscribe();
 
