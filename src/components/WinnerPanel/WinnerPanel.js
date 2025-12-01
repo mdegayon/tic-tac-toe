@@ -3,7 +3,7 @@ import './WinnerPanel.css';
 import ReloadButton from "../ReloadButton/ReloadButton";
 
 function WinnerPanel({winner, onReloadClick}) {
-  
+
   if (!winner) {
     return null;
   }
