@@ -1,3 +1,11 @@
 section.Winner section.message-list i.nes-bcrikko {
     display: inline-table!important;
 }
+
+section.Winner {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: white;
+}

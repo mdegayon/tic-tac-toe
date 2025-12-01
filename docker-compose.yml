@@ -18,6 +18,14 @@ services:
     command: sh -c "npm install && npm start"
     networks:
       - app-network
+#  backend:
+        #      build:
+      #        context: ${BACKEND_DIR}
+      #      container_name: spring-backend
+        #      ports:
+      #        - "8080:8080"
+        #      networks:
+        #        - app-network
 
   storybook:
     build:
