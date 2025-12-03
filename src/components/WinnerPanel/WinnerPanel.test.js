@@ -11,9 +11,10 @@ describe('WinnerPanel', () => {
 
   it('should display the winner name when there is a winner', () => {
     const winner = 'Player 1';
-    render(<WinnerPanel winner={winner} />);
+    const { container } = render(<WinnerPanel winner={winner} />);
     
     expect(screen.getByText(`¡${winner} won!`)).toBeInTheDocument();
-    expect(screen.getByRole('img')).toHaveClass('nes-icon', 'trophy', 'is-large');
+    const trophyIcon = container.querySelector('.nes-icon.trophy.is-large');
+    expect(trophyIcon).toBeInTheDocument();
   });
 });

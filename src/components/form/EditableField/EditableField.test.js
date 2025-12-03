@@ -62,7 +62,7 @@ describe('EditableField', () => {
     expect(screen.getByText(initialValue)).toBeInTheDocument();
   });
 
-  it('should handle Enter and Escape keys', () => {
+  it('should call onChange when Enter key is pressed', () => {
     render(<EditableField value={initialValue} onChange={mockOnChange} />);
     
     // Enter edit mode
@@ -77,16 +77,26 @@ describe('EditableField', () => {
     expect(mockOnChange).toHaveBeenCalledWith(newValue);
     
     // Should exit edit mode after Enter
-    expect(screen.queryByDisplayValue(newValue)).not.toBeInTheDocument();
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+  });
+
+  it('should cancel editing when Escape key is pressed', () => {
+    render(<EditableField value={initialValue} onChange={mockOnChange} />);
     
-    // Enter edit mode again
+    // Enter edit mode
     fireEvent.click(screen.getByText(initialValue));
     
-    // Test Escape key
-    fireEvent.keyDown(screen.getByDisplayValue(initialValue), { key: 'Escape' });
+    const input = screen.getByDisplayValue(initialValue);
+    
+    // Change value but press Escape
+    fireEvent.change(input, { target: { value: 'Changed Value' } });
+    fireEvent.keyDown(input, { key: 'Escape' });
     
     // Should exit edit mode without saving
-    expect(screen.queryByDisplayValue(initialValue)).not.toBeInTheDocument();
-    expect(mockOnChange).toHaveBeenCalledTimes(1); // Only the Enter key press should trigger onChange
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    expect(mockOnChange).not.toHaveBeenCalled();
+    
+    // Original value should still be displayed
+    expect(screen.getByText(initialValue)).toBeInTheDocument();
   });
 });
